@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash" style="margin-top: 20px">
+        <div class="alert alert-{{ category  }}">{{ message }}</div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="page-header">
+        <h1>Login</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <form name="sign_in" action="/login" method="POST">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    <label for="user_email">Email</label>
+                    <input class="form-control" name="email" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="user_passowrd">Password</label>
+                    <input class="form-control" name="password" type="password">
+                </div>
+                <input class="btn btn-primary" name="commit" type="submit" value="Login">
+            </form>
+        </div>
+</div>
+{% endblock %}

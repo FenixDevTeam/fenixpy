@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash" style="margin-top: 20px">
+        <div class="alert alert-{{ category  }}">{{ message }}</div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="page-header">
+        <h1>Register</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <form name="sign_up" action="{{ url_for('sign_up')}}" method="POST">
+                {{ form.csrf_token }}
+                <div class="row">
+                    <div class="form-group col-sm-5">
+                        <label for="user_email">Email</label>
+                        <input required="required" class="form-control" name="email" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-5">
+                        <label for="user_email">Password</label>
+                        <input required="required" class="form-control" id="user_password" name="password" type="password">
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label for="user_confirm-password">Confirm Password</label>
+                        <input required="required" class="form-control" id="user_confirm-password" name="password_confirm" type="password">
+                    </div>
+                </div>
+                <p class="text-left">
+                    <input class="btn btn-primary" name="commit" type="submit" value="Register">
+                </p>
+           </form>
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li>
+                    <a href="/login">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

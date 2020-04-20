@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% block title %}Index {% endblock %}
+{% block body %}
+
+<div class='carousel slide' id='hero' style='position: absolute;'>
+    <div class='carousel-inner' style='z-index: -1'>
+        <div class='active item'>
+            <img alt="Background Image" class="random bgimg" height="1920" width="640">
+        </div>
+    </div>
+</div>
+<div class='jumbotron main masthead'>
+    <div class=''>
+        <h1>Fenix</h1>
+        <p>UP</p>
+        <a class='btn btn-primary btn-lg btn-primary' href='/forums'>Let's start &raquo;</a>
+    </div>
+</div>
+<div class='bs-docs-social'>
+    <div class=''>
+        <ul class='bs-docs-social-buttons'>
+            <li>Latest Announcements:</li>
+        </ul>
+    </div>
+</div>
+<div class='container'>
+    <div class='flash' style='margin-top: 20px;'>
+        <style>body{padding-bottom:40px;}</style>
+        <div class='row marketing'>
+            <div class='col-md-4'>
+                <i style="font-size: 150px" class="fa fa-cogs fa-code fa-6 fa-border"></i>
+                <h2>Price</h2>
+                <p>Cheap</p>
+            </div>
+            <div class='col-md-4'>
+                <i style="font-size: 150px" class="fa fa-star fa-usd fa-6 fa-border"></i>
+                <h2>x2</h2>
+                <p>s2</p>
+            </div>
+            <div class='col-md-4'>
+                <i style="font-size: 150px" class="fa fa-support fa-service fa-6 fa-border"></i>
+                <h2>x3</h2>
+                <p>s3</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var imagePath = "/static/img/bg/";
+
+    function displayLogo() {
+        var filename = "bg" + getRandomInt(1, 4).toString() + ".jpg";
+
+        $(".random").attr({
+            "src": imagePath + filename,
+        });
+    }
+
+    $(document).ready(function () {
+        displayLogo();
+    });
+</script>
+{% endblock %}

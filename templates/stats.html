@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block title %}Stats{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1>
+            Stats
+        </h1>
+        <p> {{ data.items|length }} kills and deaths</p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th >UUUID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in data.items %}
+                    <tr>
+                        <td>
+                            <a href="/player/{{player.name}}">
+                                
+                                {{ player.name }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ player.uuid }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% for page_num in data.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=4) %}
+                {% if page_num %}
+                    {% if data.page == page_num %}
+                        <ul class='pagination pagination-sm'>
+                            <li class="active"><a>{{ page_num }}</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class='pagination pagination-sm'>
+                            <li ><a href="{{ url_for('stats', page=page_num) }}">{{ page_num }}</a></li>
+                        </ul>
+                    {% endif %}
+                {% else %}
+                ...
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
