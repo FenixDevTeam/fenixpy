@@ -5,9 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, TextAreaField, BooleanField
-from wtforms.validators import DataRequired, Email, Length
+
+
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -21,6 +20,9 @@ class Stats(db.Model):
     registered = db.Column(db.BigInteger, nullable=False)
     name = db.Column(db.String(16), nullable=False)
     times_kicked = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f'<Player {self.name}>'
     
 
     @staticmethod
@@ -28,7 +30,11 @@ class Stats(db.Model):
         page = request.args.get('page', 1, type=int)
         players = Stats.query.paginate(page=page, per_page=20)
         return players
-        
+
+    @staticmethod
+    def get_by_name(name):
+        stats = Stats.query.filter_by(name=name).first()
+        return stats
 
 class User(db.Model, UserMixin):
     
@@ -65,14 +71,3 @@ class User(db.Model, UserMixin):
     @staticmethod
     def get_by_email(email):
         return User.query.filter_by(email=email).first()
-
-class LoginForm(FlaskForm):
-    email = StringField('email', validators=[DataRequired(), Email()])
-    password = PasswordField('password', validators=[DataRequired()])
-    submit = SubmitField()
-
-class SignupForm(FlaskForm):
-    email = StringField('email', validators=[DataRequired(), Email()])
-    password = PasswordField('password', validators=[DataRequired()])
-    password_confirm = PasswordField('password_confirm', validators=[DataRequired()])
-    submit = SubmitField()

@@ -15,7 +15,8 @@ login_manager.login_view = "login"
 
 app.secret_key = '123'
 
-from models import Stats, User, LoginForm, SignupForm
+from models import Stats, User
+from forms import  LoginForm, SignupForm
  
 @login_manager.user_loader
 def load_user(user_id):
@@ -83,6 +84,14 @@ def sign_up():
                     return redirect(url_for('sign_up'))
     return render_template("signup.html", form=form)
 
+
+@app.route('/<string:name>', methods=['GET'])
+def profile(name):
+    stats = Stats.get_by_name(name)
+    if stats is None:
+        abort(404)
+    print(stats)
+    return render_template('profile.html', data=stats)
 
 @app.route('/logout')
 def logout():

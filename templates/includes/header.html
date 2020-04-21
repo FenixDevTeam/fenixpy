@@ -20,6 +20,30 @@
             </ul>
             <hr class='visible-xs visible-sm' style='margin: 4px; border-color: #e7e7e7;'>
             <ul class='nav navbar-nav pull-right'>
+                {% if current_user.is_authenticated %}
+                <li class='dropdown'>
+                    <a class='dropdown-toggle' data-toggle='dropdown' href='#' style='outline: none; '>
+                        <div class='visible-xs-inline visible-sm-inline'>
+                            Account
+                        </div>
+                        <b class='caret'></b>
+                    </a>
+                    <ul class='dropdown-menu dropdown-menu-right'>
+                        <li>
+                            <a href="/player/">Profile</a>
+                        </li>
+                        <li>
+                            <a href="/alerts">Alerts</a>
+                        </li>
+                        <li>
+                            <a href="/account">Settings</a>
+                        </li>
+                        <li>
+                            <a href="/logout"><?=$header_dd["logout"]?></a>
+                        </li>
+                    </ul>
+                </li>
+                {% else %}
                 <li class='dropdown'>
                     <a class='dropdown-toggle' data-toggle='dropdown' href='#' style='outline: none; '>
                         <i class='fa fa-user'></i>
@@ -30,13 +54,14 @@
                     </a>
                     <ul class='dropdown-menu dropdown-menu-right'>
                         <li>
-                            <a href='/login'>Login</a>
+                            <a href='/sign_in'>Login</a>
                         </li>
                         <li>
                             <a href='/sign_up'>Register</a>
                         </li>
                     </ul>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </div>
